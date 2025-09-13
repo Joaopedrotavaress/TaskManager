@@ -1,6 +1,6 @@
 using System;
 
-namespace TaskManager.Models
+namespace TaskManager.Codigo.Models
 {
     public class Tarefas
     {

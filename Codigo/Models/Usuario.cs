@@ -1,5 +1,5 @@
 
-namespace TaskManager.Models
+namespace TaskManager.Codigo.Models
 {
     public class Usuario
     {

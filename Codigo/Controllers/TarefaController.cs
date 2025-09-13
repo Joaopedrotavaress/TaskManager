@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using TaskManager.Dto;
-using TaskManager.Models;
-using TaskManager.Services;
+using TaskManager.Codigo.Dto;
+using TaskManager.Codigo.Models;
+using TaskManager.Codigo.Services;
+
 
 namespace TaskManager.Controllers
 {

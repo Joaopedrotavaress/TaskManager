@@ -1,13 +1,11 @@
-using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using TaskManager.Data;
-using TaskManager.Dto;
-using TaskManager.Models;
-using TaskManager.Services;
 
-namespace TaskManager.Controllers
+using Microsoft.AspNetCore.Mvc;
+using TaskManager.Codigo.Dto;
+using TaskManager.Codigo.Models;
+using TaskManager.Codigo.Services;
+
+
+namespace TaskManager.Codigo.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using TaskManager.Data;
-using TaskManager.Models;
+using TaskManager.Codigo.Data;
+using TaskManager.Codigo.Models;
 
-namespace TaskManager.Services
+namespace TaskManager.Codigo.Services
 {
     public class UsuarioService
     {
