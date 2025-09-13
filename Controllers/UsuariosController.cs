@@ -15,20 +15,27 @@ namespace TaskManager.Controllers
     {
         private readonly UsuarioService _usuarioService;
 
+
         public UsuariosController(UsuarioService usuarioService)
         {
             _usuarioService = usuarioService;
+
         }
 
         [HttpPost]
         public async Task<IActionResult> AddUsuario(UsuarioCadastroDto usuarioDto)
         {
-             var novoUsuario = new Usuario
+            var novoUsuario = new Usuario
             {
                 Nome = usuarioDto.Nome,
                 Email = usuarioDto.Email
             };
+
             Usuario usuarioCriado = await _usuarioService.AddUsuarioAsync(novoUsuario);
+            if (usuarioCriado == null)
+            {
+                return Conflict("Já existe um usuário com o e-mail informado.");
+            }
             return Ok(usuarioCriado);
         }
 
@@ -36,6 +43,9 @@ namespace TaskManager.Controllers
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
         {
             List<Usuario> usuarios = await _usuarioService.getUsuariosAsync();
+
+             if (usuarios == null)
+                return NotFound("Usuario não encontrado");
             return Ok(usuarios);
         }
 
@@ -44,19 +54,19 @@ namespace TaskManager.Controllers
         {
             var Usuario = await _usuarioService.getUsuarioIdAsync(id);
             if (Usuario == null)
-                return NotFound("Personagem não encontrado");
+                return NotFound("Usuario não encontrado");
             return Ok(Usuario);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Usuario>> UpdateUsuario(int id, [FromBody] UsuarioCadastroDto usuarioAtualizado)
         {
-              var novoUsuario = new Usuario
+            var novoUsuario = new Usuario
             {
                 Nome = usuarioAtualizado.Nome,
                 Email = usuarioAtualizado.Email
             };
-            var usuario = await _usuarioService.updateUsuarioAsync(id,novoUsuario);
+            var usuario = await _usuarioService.updateUsuarioAsync(id, novoUsuario);
             if (usuario == null)
                 return NotFound("Usuario não encotrado");
 

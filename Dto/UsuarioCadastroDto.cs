@@ -14,6 +14,6 @@ namespace TaskManager.Dto
         [EmailAddress]
         public string Email { get; set; }
 
-         public List<TarefaCadastroDto> Tarefas { get; set; } = new List<TarefaCadastroDto>();
+        
     }
 }

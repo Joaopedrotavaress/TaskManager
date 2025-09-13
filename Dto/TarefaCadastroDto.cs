@@ -9,5 +9,8 @@ namespace TaskManager.Dto
 
         [Required]
         public string descricao { get; set; }
+
+        [Required]
+        public int UsuarioId { get; set; }
     }
 }

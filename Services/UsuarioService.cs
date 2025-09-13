@@ -7,13 +7,19 @@ namespace TaskManager.Services
     public class UsuarioService
     {
         private readonly AppDbContext _appDbContext;
+        private readonly TarefaService _tarefasService;
 
-        public UsuarioService(AppDbContext appDbContext)
+        public UsuarioService(AppDbContext appDbContext, TarefaService tarefaService)
         {
             _appDbContext = appDbContext;
+            _tarefasService = tarefaService;
         }
         public async Task<Usuario> AddUsuarioAsync(Usuario usuario)
         {
+            var usuarioExistente = await _appDbContext.Usuarios
+                                                            .FirstOrDefaultAsync(u => u.Email.Equals(usuario.Email));
+            if (usuarioExistente != null)
+                return null;                                                
             _appDbContext.Usuarios.Add(usuario);
             await _appDbContext.SaveChangesAsync();
             return usuario;
@@ -22,11 +28,15 @@ namespace TaskManager.Services
         public async Task<List<Usuario>> getUsuariosAsync()
         {
             var usuarios = await _appDbContext.Usuarios.ToListAsync();
+
             return usuarios;
+
         }
         public async Task<Usuario> getUsuarioIdAsync(int id)
         {
-            var usuario = await _appDbContext.Usuarios.FindAsync(id);
+            var usuario = await _appDbContext.Usuarios
+                                    .Include(u => u.Tarefas) 
+                                    .FirstOrDefaultAsync(u => u.Id == id);
             if (usuario == null)
                 return null;
             return usuario;
@@ -38,13 +48,18 @@ namespace TaskManager.Services
             {
                 return null;
             }
-            _appDbContext.Entry(usuario).CurrentValues.SetValues(usuarioAtualizado);
+
+            usuario.Email = usuarioAtualizado.Email;
+            usuario.Nome = usuarioAtualizado.Nome;
+
             await _appDbContext.SaveChangesAsync();
             return usuarioAtualizado;
         }
         public async Task<Usuario> deleteUsuarioAsync(int id)
         {
-            var usuario = await _appDbContext.Usuarios.FindAsync(id);
+            var usuario = await _appDbContext.Usuarios
+                                    .Include(u => u.Tarefas) 
+                                    .FirstOrDefaultAsync(u => u.Id == id);
             if (usuario == null)
             {
                 return null;
@@ -53,7 +68,7 @@ namespace TaskManager.Services
             await _appDbContext.SaveChangesAsync();
             return usuario;
         }
-        
+
 
     }
 }

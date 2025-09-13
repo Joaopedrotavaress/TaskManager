@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Data;
+using TaskManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<TarefaService>();
+builder.Services.AddScoped<UsuarioService>();
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
