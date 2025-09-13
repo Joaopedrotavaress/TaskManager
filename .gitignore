@@ -1,0 +1,18 @@
+# Arquivos de usuário e cache
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build e arquivos gerados
+[Bb]in/
+[Oo]bj/
+
+# Arquivos do Rider
+.idea/
+
+# Arquivos do VS Code
+.vscode/
+
+# Arquivos de log
+*.log
